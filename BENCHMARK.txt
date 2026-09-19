@@ -1,0 +1,64 @@
+BENCHMARK = [
+    {
+        "id": 1,
+        "kind": "tra số liệu",
+        "question": "Sinh viên thuộc hộ nghèo được cấp học bổng hỗ trợ học tập trị giá bao nhiêu phần trăm học phí?",
+        "gold_answer": (
+            "Toàn phần, trị giá 100% học phí (so với chương trình đào tạo chuẩn). "
+            "Hộ cận nghèo và hộ đặc biệt khó khăn được bán phần 50% học phí."
+        ),
+        "gold_doc_id": "tieu-chi-xet-hoc-bong-ho-tro-hoc-tap",
+        "must_contain": ["100% học phí"],
+        "metadata_filter": None,
+    },
+    {
+        "id": 2,
+        "kind": "hỏi điều kiện",
+        "question": "Điều kiện GPA và điểm rèn luyện để được học bổng khuyến khích học tập loại A là bao nhiêu?",
+        "gold_answer": "Loại A: GPA từ 3.6 và điểm rèn luyện từ 90. Mức học bổng loại A tương đương 150% học phí.",
+        "gold_doc_id": "ho-tro-tai-chinh-tan-sinh-vien",
+        "must_contain": ["3.6", "90"],
+        "metadata_filter": None,
+    },
+    {
+        "id": 3,
+        "kind": "hỏi quy trình — CẦN METADATA FILTER",
+        "question": "Hồ sơ đăng ký học bổng hỗ trợ học tập nộp ở đâu?",
+        "gold_answer": (
+            "Với sinh viên đang học: gửi về Phòng Tuyển sinh, Phòng 202, Nhà D7, "
+            "Trường Đại học Bách khoa Hà Nội, số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội."
+        ),
+        "gold_doc_id": "tieu-chi-xet-hoc-bong-ho-tro-hoc-tap",
+        "must_contain": ["Phòng 202", "D7"],
+        "metadata_filter": {"audience": "student"},
+        # Câu này cố tình KHÔNG nêu người hỏi là ai. Corpus có hai tài liệu cùng
+        # nói về "học bổng hỗ trợ học tập" nhưng khác audience và khác đáp án:
+        #   audience=student   -> nộp Phòng 202, Nhà D7 (Phòng Tuyển sinh)
+        #   audience=applicant -> nộp online, bản cứng ở Phòng 103 nhà C1 (Phòng CTSV)
+        # Không lọc thì retrieval lẫn hai tài liệu và agent trả lời sai đối tượng.
+    },
+    {
+        "id": 4,
+        "kind": "tra học phí",
+        "question": "Học phí chương trình ELITECH năm học 2022-2023 là bao nhiêu một năm?",
+        "gold_answer": (
+            "35 đến 40 triệu đồng/năm học; riêng Khoa học dữ liệu và Trí tuệ nhân tạo (IT-E10) "
+            "và Logistics và Quản lý chuỗi cung ứng (EM-E14) khoảng 60 triệu đồng/năm học."
+        ),
+        "gold_doc_id": "hoc-phi-dai-hoc-2022",
+        "must_contain": ["35", "40 triệu"],
+        "metadata_filter": None,
+    },
+    {
+        "id": 5,
+        "kind": "liệt kê",
+        "question": "Những chương trình vi mạch bán dẫn nào được nhận học bổng mức 4.200.000 đồng/tháng?",
+        "gold_answer": (
+            "Hai chương trình đại học và một chương trình kỹ sư chuyên sâu: Kỹ thuật Điện tử - Viễn thông (ET1), "
+            "Hệ thống nhúng thông minh và IoT (tăng cường tiếng Nhật) (ET-E9), và Kỹ sư chuyên sâu Thiết kế vi mạch."
+        ),
+        "gold_doc_id": "nghi-dinh-55-nhan-hoc-bong",
+        "must_contain": ["ET1", "ET-E9"],
+        "metadata_filter": None,
+    },
+]
